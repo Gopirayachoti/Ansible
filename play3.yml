@@ -1,0 +1,17 @@
+---
+- name: play to create a group
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: task to create a group
+     group:
+      name: vandanaops
+      state: present 
+   - name: Add vandudm01 group to the existing user vandu01
+     user: 
+      name: vandananewuser
+      groups: vandanaops
+      state: present
+      append: yes #do not replace existing suppliment group, and append this rather.  
+...     

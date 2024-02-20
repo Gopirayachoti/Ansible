@@ -1,0 +1,32 @@
+---
+- name: play to retrieve system information
+  hosts: prod
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: Delete the info file ie /tmp/sysinfo_hostname if it exists
+     # so that a new file can be created
+     file:
+      path: "/tmp/sysinfo_{{ansible_hostname}}"
+      state: absent
+   - name: Task to extract the system information
+     lineinfile:
+      path: "/tmp/sysinfo_{{ansible_hostname}}"
+      line: >
+        "Name: {{ansible_hostname}}  \nMemory:
+        {{ansible_memtotal_mb}}\n
+        CPU:{{ansible_processor_count}}"
+      create: yes # create the file if it doesnot exists
+   - name: Task to retrieve the mount information
+     lineinfile:
+      path: "/tmp/sysinfo_{{ansible_hostname}}"
+      line: "{{item.mount}}"
+     loop: "{{ansible_mounts}}"
+   - name: Download the info file from remote server {{ansible_hostname}}  to local server  /sysinfo Directory
+    #assume that /sysinfo Directory exists. else create a module to create a directory
+    #use fetch module to download
+     fetch:
+      src: "/tmp/sysinfo_{{ansible_hostname}}"
+      dest: " /sysInfo/sysinfo_{{ansible_hostname}}"
+      flat: yes
+...       

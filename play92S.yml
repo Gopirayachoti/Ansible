@@ -1,0 +1,34 @@
+---
+- name: Example to demonstrate handlers in ansible
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  gather_facts: false
+  tasks:
+   - name: task1 to print a debug message
+     debug: 
+      msg: "This is my first message"
+     changed_when: true
+     notify: myhandler1
+   - name: flush handlers
+     meta: flush_handlers
+#Meta tasks are a special kind of task which can influence ansible
+#internal execution or state
+#Meta tasks can be used anywhere within your playbook.
+#flush_handlers makes ansible run any handler tasks
+#which have thus far been notified.
+#Ansible inserts these tasks internally at certain points to.
+#implicity trigger handler runs
+   - name: task1 to print a debug message
+     debug: 
+      msg: "This is my second message"
+     changed_when: true
+     notify: myhandler2
+  handlers:
+   - name: myhandler2
+     debug:
+      msg: "To print the handler2 message"
+   - name: myhandler1 
+     debug:
+      msg: "to print the handler1 message"
+...      

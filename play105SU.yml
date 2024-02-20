@@ -1,0 +1,9 @@
+---
+- name: play to work with motd role
+  hosts: ramesh 
+  become: true
+  remote_user: ansible
+  roles: 
+   - role: motd
+     system_manager: syadm@alclabs.in
+...     

@@ -1,0 +1,43 @@
+---
+- name: play to implement handlers in which
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: Tasks to intall package
+     yum:
+      name: "{{package}}"
+      state: latest
+     notify: 
+     #notifying handlers only happen if 
+     #if change didn't happen ie changed
+     - startftpserver
+     - startfw
+     - addport
+     - restartfw
+     when: package is defined
+   - name: print failure ,message
+     fail:
+      msg: "you have not defined package"
+     when: package is not defined
+  handlers:
+   - name: startftpserver
+     service:
+      name: vsftpd
+      state: started
+   - name: startfw
+     service:
+      name: firewalld
+      state: restarted
+      enabled: yes
+   - name: addport
+     firewalld:
+      service: ftp
+      state: enabled
+      immediate: yes
+      permanent: yes
+   - name: restartfw
+     service:
+      name: firewalld
+      state: restarted
+...                      

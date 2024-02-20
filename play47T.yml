@@ -1,0 +1,18 @@
+---
+- name: play to copy local file to remote servers with copy module
+  hosts: tiger
+  become: true
+  remote_user: ansible
+  gather_facts: false
+  vars:
+  # dname: /var/user_list.csv
+   fname: /etc/shadow
+  tasks:
+   - name: copy {{fname}} to /tmp to all remove servers
+     copy: #copy module to copy a file from local servetr to remote server
+      src: "{{fname}}"
+      dest: /tmp/user_list
+      remote_src: yes
+      backup: yes
+...      
+

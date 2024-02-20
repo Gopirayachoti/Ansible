@@ -1,0 +1,13 @@
+---
+- name: 
+  hosts: localhost
+  tasks:
+   - name:
+     debug:
+      msg: "{{item}}"
+     loop:
+      - bye
+      - for
+      - now
+      - meet u on tommorow
+...      

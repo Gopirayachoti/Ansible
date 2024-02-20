@@ -1,0 +1,27 @@
+---
+#configure cron job
+#Below tab will be configured in given hosts
+#0    8,18,20    1-5     1,3,4,6     2              /usr/sbin/vgs>/tmp/vgs.out
+#min  hours      date     month   Dayoftheweek           Job
+- name: configure cron job
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: configure cron job
+     cron:
+      name: "Alc_Job1"
+      minute: "0" #Minutes ranges from 0-59
+      hour: "8,18,20" #8am, 6pm, 8pm; hours ranges from 0 - 23
+      #if you want to give * . then ignore the parameter. It assumes as *; ie all values
+      weekday: "2" # tuesday
+      day: "1-5" #Day of the month the job should run; In this example
+                #date ranges from 1st to 5th of the month
+      month: "1,3,4,6,12" #month of the year; in this example, jan,mar,apr, june and dec
+      job: "/usr/sbin/vgs > /tmp/vgs.out" # this is path to program or script to run
+      #state: present #you can make state: absent to remove the job
+                     #you can use disabled: true to comment the job
+      disabled: true  
+      #state: absent              
+...    
+

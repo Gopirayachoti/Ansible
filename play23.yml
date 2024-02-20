@@ -1,0 +1,19 @@
+---
+- name: play to demonstrate variables
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  vars:
+   student:
+    name:
+     first_name: Ramesh
+     last_name: Vandana
+    subject: English
+    marks: 95
+  tasks:
+   - name: print stu info
+     debug:
+      #msg: "{{student['name']}} subject: {{student['subject']}} Marks: {{student['marks']}}"
+       msg: "stu first Name: {{student['name']['first_name']}} stu last_name: {{student['name']['last_name']}}"
+...
+

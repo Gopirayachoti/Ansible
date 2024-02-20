@@ -1,0 +1,24 @@
+---
+- name: Demonstrate uri module
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  gather_facts: false
+  tasks:
+   - name: task to demonstrate uri module
+     uri:
+     #uri module is used to check status of the web pages and validating the status
+     #code
+      url: http://192.168.5.56/index.html
+      return_content: yes
+     register: out
+     ignore_errors: yes
+   - name: print the register variable
+     debug:
+      msg: "The webpage is working"
+     when: out.status == 200
+   - name: print the register variable
+     debug:
+      msg: "unable to laod the web page or the webserver might down"
+     when: out.status == -1 or out.status == 404
+...    

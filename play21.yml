@@ -1,0 +1,17 @@
+---
+- name: play to demonstrate variables
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  vars:
+   colors:
+    - blue
+    - green
+    - red
+    - white
+    - purple
+  tasks:
+   - name: print colors
+     debug:
+      msg: "color1:{{colors[0]}} color2:{{colors[1]}} color3:{{colors[2]}} color4:{{colors[3]}} color5:{{colors[4]}}"
+...      

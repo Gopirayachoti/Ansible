@@ -1,0 +1,19 @@
+---
+- name: Demonstrate stat module
+  hosts: localhost
+  become: true
+  tasks:
+   - name: Use stst module to test if the file exists
+     stat:
+      path: /etc/password
+     register: out
+   - name: print stat results
+     debug:
+      msg: File exists
+     when: out.stat.exists
+   - name: print stat results
+     debug:
+      msg: File does not exists
+     when: out.stat.exists == false 
+...           
+

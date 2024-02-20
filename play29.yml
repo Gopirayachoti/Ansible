@@ -1,0 +1,13 @@
+---
+- name: Demonstrate debug module in the play
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  vars:
+   sun: bright
+  tasks:
+   - name: Debug Task
+     debug:  
+    #  msg: "{{sun}}"
+      var: sun
+...      

@@ -1,0 +1,28 @@
+---
+- name: Play to read csv file
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  vars:
+   csv_file: /home/ansible/user_list.csv
+  tasks:
+   - name: read {{csv_file}} using read_csv module
+     read_csv:
+      path: "{{csv_file}}"
+     register: out
+   - name: Create a group
+     group:
+      name: "{{item.groups}}"
+     loop: "{{out.list}}"
+   - name: Create users
+     user:
+      name: "{{item.uname}}"
+      uid: "{{item.uid}}"
+      comment: "{{item.first_name}}_{{item.last_name}}"
+      password: "{{item.password|password_hash('sha512')}}"
+      update_password: on_create
+      append : yes
+      state: present
+     loop: "{{out.list}}"
+...      
+                                                            

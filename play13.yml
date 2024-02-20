@@ -1,0 +1,10 @@
+---
+- name: Demonstrate debug module
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: Task to print the text on the screen
+     debug:
+      msg: "Good Evening... its Ansible.. Intelligent!!!"
+...    

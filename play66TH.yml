@@ -1,0 +1,16 @@
+---
+- name: play to create a soft link
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: task to create a soft link
+     file: 
+      src: /home/ansible/playbook/play1.yml #file name to which softlink to be created
+                                            # this is source
+      dest: /home/ansible/link_to_play1.yml #soft link file exists
+      state: link
+      mode: 0644
+      owner: ansible
+      group: ansible
+...      

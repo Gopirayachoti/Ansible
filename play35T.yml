@@ -1,0 +1,17 @@
+---
+- name: create a users using a loop from a list
+  hosts: localhost
+  remote_user: ansible
+  become: true
+  vars_files:
+   - vars/user_list.yml
+  tasks:
+   - name: create user
+     user:
+      name: "{{item.username}}"
+      password: "{{item.username|password_hash}}"
+      groups: "{{item.groups}}"
+      home: "{{item.homedir}}"
+      shell: "{{item.shell}}"
+     loop: "{{users}}" 
+...    

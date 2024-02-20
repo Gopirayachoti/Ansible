@@ -1,0 +1,16 @@
+---
+- name: play to demonstarte shell command
+  hosts: tiger
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: Execute a a shell command
+     shell:
+      cmd: pvs
+     register: myvar 
+   - name: print the registered variable name
+     debug:
+      #var:'{{myvar.stdout}}''
+      msg: "the output is : {{myvar.stdout}}" 
+...    
+

@@ -1,0 +1,25 @@
+---
+#Demonstrate jinja2 templates
+- name: Playbook for installing and starting apache package
+  hosts: prod
+  become: true
+  remote_user: ansible
+  vars:
+   webserver_message: "Welcome!! . I am running ALC Labs Web server."
+  tasks:
+   - name: Install httpd package
+     yum:
+      name: httpd
+      state: present
+   - name: start httpd service
+     service:
+      name: httpd
+      state: started
+   - name: create index.html using Jinja2
+     template:
+      src: templates/index.j2
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: '0744'
+...          

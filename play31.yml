@@ -1,0 +1,19 @@
+---
+- name: create users
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: create user
+     user:
+      name: "{{item}}"
+      password: "{{item|password_hash}}"
+      comment: "User {{item}} to adminster"
+     loop:
+      - vandu01
+      - vandu02
+      - vandu03
+      - vandu04
+...       
+
+

@@ -1,0 +1,19 @@
+---
+- name: test register variable with when statement 
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  vars_prompt:
+   name: u_name
+   prompt: "enter the user name"
+   private: no
+  tasks:
+   - name: Task to test the contents of /etc/passwd
+     shell: cat /etc/passwd
+     register: pwd_content
+   - name: Task to test if {{u_name}} exists. skips if not found
+     debug:
+      msg: "Password file contents the given user {{u_name}}"
+     when: pwd_content.stdout.find(u_name) != -1
+...        
+  

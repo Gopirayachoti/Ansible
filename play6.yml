@@ -1,0 +1,34 @@
+---
+- name: configure index.html for the website
+  hosts: tiger
+  become: true
+  remote_user: ansible
+  become_user: root
+  tasks:
+   - name: task1- Install http server and firewalld packages
+     yum:
+      name: 
+      - httpd
+      - firewalld
+      state: latest
+   - name: task-2 create index.html
+     copy:
+      dest: /var/www/html/index.html
+      content: '<html><h1>Welcome to ALC labs Website <br> This page is created by vandana </h1></html>'
+   - name: task-3 start httpd web server
+     service:
+      name: httpd
+      state: started
+      enabled: yes
+   - name: task-4 start firewalld server
+     service: 
+      name: firewalld
+      state: started
+      enabled: yes
+   - name: task-5 Allow http traffic permanently through firewall
+     firewalld:
+      service: http   
+      permanent: yes
+      state: enabled
+      immediate: yes  
+

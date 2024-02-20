@@ -1,0 +1,26 @@
+---
+- name: play to mount dvd
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: mount the using mount module
+     mount:
+      src: /dev/sr0
+      path: /mnt
+      opts: ro #options read only as it is dvd
+      fstype: iso9660 #iso image fstype is iso9660
+      state: present
+      #mounted will add entry in /etc/fstab and then mounted
+      #absent will unmount and remove the entry from /etc/fstab
+      #unmounted will only unmount the fs but not remove entry from /etc/fstab
+      #present will just mount the mount point but add the entry in /etc/fstab
+   - name: verify the mounts
+     command:
+      cmd: "df -h"
+     register: out
+   - name: print the output
+     debug: 
+      msg: "{{out.stdout_lines}}"
+...           
+

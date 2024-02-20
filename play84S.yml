@@ -1,0 +1,25 @@
+---
+- name: play to demonstrate find module
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: Task to find given file
+     find:
+      paths: 
+       - /etc
+       - /var/log
+      file_type: file
+      patterns:
+       - passwd*
+       - sysctl.conf
+       - httpd.conf
+       - "*.log"
+      recurse: yes
+     register: out 
+   - name: print the output
+     debug:
+      msg: "{{item.path}}"
+     loop: "{{out.files}}"
+...      
+

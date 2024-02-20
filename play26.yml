@@ -1,0 +1,18 @@
+---
+- name: play to create a user
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  vars_prompt:
+   - name: u_name
+     prompt: "Enter the username"
+     private: no
+   - name: pwdhash
+     prompt: "Enter the user password"
+  tasks:
+   - name: Task to create a user {{u_name}}
+     user:
+      name: "{{u_name}}"
+      password: "{{pwdhash | password_hash}}"
+      comment: "The robo user by ansible"
+...         

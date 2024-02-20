@@ -1,0 +1,14 @@
+---
+- name: Play to demonstrate a loop in ansible
+  hosts: localhost
+  tasks:
+   - name: Run through a loop
+     debug:
+      msg: "{{item}}"
+     loop:
+      - green
+      - yellow
+      - white
+      - blue
+      - red
+...      

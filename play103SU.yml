@@ -1,0 +1,19 @@
+---
+- name: play to test templates
+  hosts: localhost
+  vars_prompt: 
+   name: service_name
+   prompt: " enter the service name. choose from ftp ,ssh,smtp and dns"
+   private: no
+   default: ssh
+  vars:
+   ftp_port: 21
+   ssh_port: 22
+   smtp_port: 25
+   dns_port: 53
+  tasks:
+   - name: Template test
+     template: 
+      src: templates/ftp_port.j2
+      dest: /tmp/ftp_port
+...         

@@ -1,0 +1,42 @@
+---
+- name: play to demonstrate synchronie module; Synchronie is a wrapper for rsync
+  hosts: ramesh
+  become: true
+  remote_user: ansible
+  vars:
+   source_dir: /dbackup
+   dest_dir: /backup #destination directory
+  tasks:
+   - name: check if rsync package installed in your local server ie in control node
+     yum:
+      name: rsync
+      state: latest
+   - name: Install rync in remote server if it doesnt exists
+     yum:
+      name: rsync
+      state: latest
+   - name: check if {{dest_dir}} exists in the destination server
+     stat:
+      path: "{{dest_dir}}"
+     register: out
+     delegate_to: localhost 
+   - name: create {{dest_dir}} directory if it doesnt exists
+     file:
+      path: "{{dest_dir}}"
+      state: directory
+      mode: '0755'
+      owner: ansible
+      group: ansible
+     when: out.stat.exists == "false"
+     delegate_to: localhost 
+   - name: synchronize in pull mode local
+     synchronize:
+      src: "{{source_dir}}"
+      dest: "{{dest_dir}}"
+      mode: pull
+      compress: yes
+      archive: yes
+      recursive: yes
+...      
+              
+

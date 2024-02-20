@@ -1,0 +1,16 @@
+---
+- name: Demonstrate debug module
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  vars:
+   OS: Linux
+  tasks:
+   - name: print the value of variables
+     debug:
+      msg: "{{OS}}"
+     debug: 
+      msg: Hi there {{OS}} 
+     debug:
+      msg: "{{OS}} operating system"
+...    

@@ -1,0 +1,12 @@
+---
+- name: play to work with file module
+  hosts: all
+  become: true
+  remote_user: ansible
+  become_user: root
+  tasks:
+   - name: Task to create an empty file
+     file:
+      path: /var/ansi.conf
+      state: absent
+      mode: u=rw,g=r,o=

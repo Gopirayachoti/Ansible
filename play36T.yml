@@ -1,0 +1,28 @@
+---
+- name: demonstrate Ansible variable existency check
+  hosts: localhost
+  become_user: true
+  remote_user: ansible
+  vars:
+   milk: white
+   sky: blue
+   #the above is command intentionally; will check if the variable is defined
+  tasks:
+   - name: check if the variable is defined.
+     debug:
+      msg: The variable milk exists and is defined. Its value is "{{milk}}"
+     when: milk is defined
+   - name: check if the variable is not defined
+     debug:
+      msg: the variable sky is not defined
+     when: sky is not defined 
+   - name: check if the variable is defined.
+     debug:
+      msg: The variable milk doesnt exists
+     when: milk is not defined
+   - name: check if the variable is not defined
+     debug:
+      msg: "the variable sky is defined and its value is {{sky}}"
+     when: sky is defined
+...      
+

@@ -1,0 +1,23 @@
+---
+- name: play to demonstrate filter_list ansd set
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  gather_facts: false
+  vars:
+    numbers: [1,2,3,4]
+  tasks:
+   - name: task to print max,min,unique.random
+     template:
+      src: minmav_values.j2
+      dest: /tmp/minmav_values.j2
+   - name: Display Min, Max, and Unique Values
+     debug:
+      msg: >
+       " Min: {{ numbers | min }} \n
+         Max: {{ numbers | max }} \n
+         Unique: {{ numbers | unique }}"  
+   - name: Display Random Values
+     debug:
+       msg: "Random Value: {{ numbers| random }}"
+...        

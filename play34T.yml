@@ -1,0 +1,25 @@
+---
+- name: Install and start the services
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  vars:
+   services:
+    - vsftpd
+    - httpd
+    - smb
+  tasks:
+   - name: Install packages
+     yum:
+      name:
+       - vsftpd
+       - httpd
+       - samba
+      state: latest
+   - name: start the services
+     service:
+      name: "{{item}}"
+      state: started
+      enabled: true
+     loop: "{{services}}"
+...

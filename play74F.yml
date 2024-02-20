@@ -1,0 +1,12 @@
+---
+- name: print List of hosts from the given group from the inventory
+  hosts: lokeshwari
+  remote_user: ansible
+  become: true
+  tasks:
+   - name: Task to print hosts in the inventory by looping against all the items in group[all]
+     copy:
+      content: "Hi .. Welcome to Ansible World!!! \n"
+      dest: /etc/motd
+     when: ansible_hostname in groups['developers'] #Remember thye magic variable
+...

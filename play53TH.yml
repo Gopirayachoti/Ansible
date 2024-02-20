@@ -1,0 +1,14 @@
+---
+- name: Play to demonstrate unarchive
+  hosts: [192.168.5.66 192.168.5.44]
+  become: true
+  remote_user: ansible
+  tasks: 
+   - name: Task to unarchive 
+     unarchive:
+      src: /tmp/etc_archive.tar.gz
+      dest: /var/tmp
+      remote_src: yes
+...      
+
+      

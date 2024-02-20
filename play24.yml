@@ -1,0 +1,14 @@
+---
+- name: Demonstrate ansible facts with Injected variables
+  hosts: localhost
+  become: true
+  tasks:
+   - name: show the IP Address
+     #debug: "The host IP address {{ansible_default_ipv4.address}}"
+     debug:
+       msg: >
+        The host IP address {{ 
+        ansible_facts['default_ipv4']['address']}} 
+...              
+
+     

@@ -1,0 +1,10 @@
+#---
+- name: Play to reboot remote servers
+  hosts: devops
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: Reboot remote servers
+#Module Name is reboot
+     reboot:
+...     

@@ -1,0 +1,30 @@
+---
+- name: play to check if the file is directory
+  hosts: localhost
+  remote_user: ansible
+  become: true
+  vars_prompt:
+   - name: fname
+     prompt: "provide the path of the object to test"
+     private: no
+  tasks:
+   - name: Get stats of {{fname}}
+     stat:
+      path: "{{fname}}"
+     register: out
+   - name: check if the given file is a directory
+     debug:
+      msg: "{{fname}} is a directory"
+     when: out.stat.exists and out.stat.isdir 
+   - name: check if the given file is of type file
+     debug:
+      msg: "{{fname}} is a file"
+     when: out.stat.exists and not out.stat.isdir     
+   - name: check if the given file exists at all.
+     debug:
+      msg: "{{fname}} object found"
+     when: out.stat.exists    
+       
+
+
+

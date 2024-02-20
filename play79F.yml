@@ -1,0 +1,17 @@
+---
+- name: play to read csv file
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  vars:
+   csv_file: /home/ansible/playbook/user_list.csv
+  tasks:
+   - name: read {{csv_file}} using read_csv module
+     read_csv:
+      path: "{{csv_file}}"
+     register: out
+   - name: print the file content
+     debug:
+      var: out
+...         
+      

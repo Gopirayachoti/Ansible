@@ -1,0 +1,11 @@
+---
+- name: testing multiple conditions
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: task to take decisions based on distribution version and distribution name
+     debug:
+      msg: using Redhat 8.5
+     when: ansible_facts['distribution_version']== "8.5" and ansible_facts['distribution']== "RedHat"
+...

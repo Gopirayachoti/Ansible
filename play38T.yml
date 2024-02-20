@@ -1,0 +1,21 @@
+---
+- name: Test if the variable is in anothger variable list
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  vars_prompt:  
+   - name: my_answer
+     prompt: "which packages do you want to install"
+  vars:
+   supported_packages:
+    - httpd
+    - nginx
+  tasks:
+   - name: Task to check if {{my_answer}} exists in supported packages
+     debug:
+      msg: you are trying to install a supported package
+     when: my_answer in supported_packages     
+   - name: Task to check if {{my_answer}} not exists in supported packages
+     debug:
+      msg: The package {{my_answer}} is not in the supported package
+     when: my_answer not in supported_packages  

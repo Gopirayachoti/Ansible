@@ -1,0 +1,17 @@
+---
+- name: Work with systemd module; this is similar to service module
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  gather_facts: no
+  tasks:
+   - name: use systemd  module to start /stop/restart/reload/mask system units
+     systemd:
+      name: httpd.service
+      state: stopped
+   - name: reload cron.service
+     systemd:
+      name: crond.service
+      state: reloaded
+...         
+

@@ -1,0 +1,19 @@
+---
+ - name: play to demonstrate fail module
+   hosts: localhost
+   become: true
+   remote_user: ansible
+   vars_prompt:
+   - name: u_name
+     prompt: Provide the username to reset the password
+     private: no
+   tasks:   
+    - name: Task to fail the module
+      fail:
+       msg: You cannot reset password of "{{u_name}}"
+      when: u_name == "root"
+    - name: Reset the password of "{{u_name}}"
+      user:
+       name: "{{u_name}}"
+       password: "{{u_name|password_hash('sha512')}}"
+...           

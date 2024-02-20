@@ -1,0 +1,28 @@
+---
+- name:  play to implemenet the handlers
+  hosts: prod
+  become: true
+  remote_user: ansible
+  gather_facts: false
+  vars:
+   pkg: httpd
+   service: httpd 
+   w_port: 80/tcp
+  tasks:
+   - name: task to  Install http packages
+     yum:
+      name: "{{pkg}}"
+      state: latest
+     notify: web_start 
+   - name: Add "{{w_port}}" 
+     firewalld:
+      port: "{{w_port}}"
+      permanent: yes
+      immediate: yes
+      state: enabled
+  handlers:     
+   - name: web_start
+     service:
+      name: "{{service}}"
+      state: started
+...

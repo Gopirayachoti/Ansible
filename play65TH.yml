@@ -1,0 +1,23 @@
+---
+- name: play to set user account expiry
+  hosts: localhost
+  become: true
+  remote_user: true
+  tasks:
+   - name: configure user expiry
+     user:
+      name: puppy
+      expires: 1715797799 #provide the value in epoch time. this value is for Dec 31st 2023 
+      #Example: use the command date -d '12/21/2023' +"%s" 
+      #to convert the date to epoch days      
+      state: present
+   - name: create a group called husky
+     group:
+      name: husky
+      state: present
+   - name: create a user with secondary group husky
+     user:
+      name: puppy
+      groups: husky
+      #append: yes #if you want to add secondary group without replacing existing ones
+...            

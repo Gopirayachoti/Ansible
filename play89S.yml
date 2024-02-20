@@ -1,0 +1,11 @@
+---
+- name: Example to demonstrate changed_when key work in the task
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: task1 to print a debug message
+     debug: 
+      msg: "This is my first message"
+     changed_when: true
+...      

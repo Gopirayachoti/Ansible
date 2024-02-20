@@ -1,0 +1,19 @@
+---
+- name: check for the existence of device
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: check if /dev/sda exists
+     debug:
+      msg: "Disks device /dev/sda exists"
+     when: ansible_facts['devices']['sda'] is defined
+   - name: check if /dev/sdb exists
+     debug:
+      msg: "Disks device /dev/sdb exists"
+     when: ansible_facts['devices']['sdb'] is defined
+   - name: check if /dev/sdz exists
+     debug:
+      msg: "Disks device /dev/sda exists"
+     when: ansible_facts['devices']['sdz'] is defined
+

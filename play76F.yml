@@ -1,0 +1,26 @@
+---
+- name: Demonstrate with_sequence loop 
+  hosts: localhost
+  gather_facts: false
+  remote_user: ansible
+  become: true
+  tasks:
+   - name: create multiple files using file module and with_sequence
+     file:
+      path: "/tmp/log_file{{item}}.log"
+      state: touch
+     with_sequence: start=1 stride=3 count=10
+     #
+#Note: with_sequence loop generates a sequence of items.
+#you can specify start value , and end value, and optional "stride" value that
+#specifies the number of steps of increment the sequence.
+# ex: start-1 stride=3 count=10
+# start: tells the number at which to start the sequence
+# stride: tells increments between sequencenumber. Default is 1
+# end: number at which to end the sequence
+# count: number of elements in the sequence, this is not to be used with 'end'.
+...
+
+
+
+...         

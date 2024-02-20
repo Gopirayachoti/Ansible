@@ -1,0 +1,14 @@
+---
+- name: play to demonstrate stat module
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: check the stat module
+     stat:
+      path: /etc/passwd
+     register: out
+   - name: print the stat output
+     debug: 
+      var: out
+...          

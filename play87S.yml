@@ -1,0 +1,21 @@
+---
+- name: play to demonstrate handlers
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  vars:
+   package: nfs-utils
+   service: nfs-server
+   state: started
+  tasks:
+   - name: Install {{package}}  in {{ansible_hostname}}
+     yum:
+      name: "{{package}}"
+      state: latest
+     notify: start_nfs
+  handlers: 
+   - name: start_nfs
+     service: 
+      name: "{{service}}"
+      state: "{{state}}"
+...     

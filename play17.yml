@@ -1,0 +1,10 @@
+---
+- name: play to be demonstration inventory variables
+  hosts: [tiger devops]
+  vars:
+   name: ALC #"high precidence having playbook(local variable)"
+  tasks: 
+   - name: print inventory variables using debug module
+     debug:
+      msg: "The value of course variable is {{course}}"
+...      

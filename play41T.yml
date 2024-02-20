@@ -1,0 +1,17 @@
+---
+- name: using multiple conditions
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: Demonstrate multiple conditions
+     package:
+      name: httpd
+      state: latest
+     when: >
+      ( ansible_facts['distribution'] == "RedHat" and
+        ansible_facts['memfree_mb']< 512)
+      or
+      ( ansible_facts['distribution'] == "CentOS" and
+        ansible_facts['memfree_mb'] < 256) 
+...

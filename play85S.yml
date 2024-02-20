@@ -1,0 +1,11 @@
+---
+- name: play to do the ping test
+  hosts: [prod developers 192.168.4.66 192.168.10.20]
+  become: true
+  remote_user: ansible
+  gather_facts: false
+  tasks:
+   - name: Task to ping {{ansible_hostname}} server
+     ping:
+     ignore_unreachable: yes
+...     

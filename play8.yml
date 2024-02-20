@@ -1,0 +1,14 @@
+---
+- name: play to work with file module
+  hosts: all
+  become: true
+  remote_user: ansible
+  become_user: root
+  tasks:
+   - name: Task to create an empty file
+     file:
+      path: /james/vandu0/vandu5
+      state: absent
+      owner: ansible
+      group: ansible
+      mode: 0700

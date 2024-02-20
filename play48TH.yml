@@ -1,0 +1,19 @@
+---
+- name: download a file from remote servers to local server
+  hosts: 192.168.5.66
+  become: true
+  remote_user: ansible
+  vars:
+   fname: /etc/hosts
+   destdir: /home/ansible
+  tasks:
+   - name: bring the file from remote server
+     fetch: #fetch module used to download files from remote server to local server
+      src: "{{fname}}"
+      dest: "{{destdir}}"
+    #  dest: "{{destdir}}/{{ansible_hostname}}_hosts"
+#     flat: yes #download only the file. Doesnot includes its path.
+...
+
+ 
+      

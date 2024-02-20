@@ -1,0 +1,14 @@
+---
+- name: play to archive multiple directories and compress the same
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: Task to archive give multiple list of directories
+     archive:
+      path:
+       - /etc/*
+       - /var/*
+      dest: myarchive.tar.gz
+      format: gz
+...       

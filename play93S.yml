@@ -1,0 +1,25 @@
+---
+- name: play to demonstrate tags module
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: Task to print text
+     debug:
+      msg: "Task1 - Red planet"
+     tags: mars 
+   - name: Task to print text
+     debug:
+      msg: "Task2 - Venus planet"
+     tags: mist 
+   - name: Task to print text
+     debug:
+      msg: "Task3 - Jupiter planet"
+     tags: mosaic 
+   - name: Task to print text
+     debug:
+      msg: "Task4 - Earth planet"
+     tags: 
+      - blue
+      - green
+...         

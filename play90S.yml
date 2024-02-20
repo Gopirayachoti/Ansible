@@ -1,0 +1,27 @@
+---
+- name: Example to demonstrate changed_when key work in the task
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: task1 to print a debug message
+     debug: 
+      msg: "This is my first message"
+     changed_when: true
+     notify: myhandler
+#Handler is processed with notify statement when change occurs in the task.
+#If no changes occurs handler will be ignored ie handler will not be notified.
+   - name: task1 to print a debug message
+     debug: 
+      msg: "This is my second message"
+     changed_when: true #this makes the task changed=true, so that handler can be nofified.
+     notify: myhandler
+#This is second time you are notify ing the same handler.
+#However, through you notify handler many time, it runs  only once.
+#Handlers are invoked at the end of all tasks processed.
+#They are processed in the same order thet appear in handlers section and not in the order they are notified,
+  handlers:
+   - name: myhandler
+     debug:
+      msg: "I am in handler"
+...                 

@@ -1,0 +1,14 @@
+---
+- name: Demonstrate jinja2 template with for loop
+  hosts: localhost
+  remote_user: ansible
+  become: true 
+  vars:
+   stu: [raghu,ramesh,loki,arya,divya,swathi]
+  tasks:
+   - name: create serverinfo.txt using jinja2
+     template:
+      src: create_page.j2
+      #dest: /tmp/serverinfo.txt
+      dest: /tmp/stu_names.txt
+...      

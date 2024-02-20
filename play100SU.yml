@@ -1,0 +1,12 @@
+---
+- name: server Information summary
+  hosts: prod
+  remote_user: ansible
+  become: true 
+  tasks:
+   - name: create serverinfo.txt using jinja2
+     template:
+      src: ansi_facts.j2
+      #dest: /tmp/serverinfo.txt
+      dest: /var/www/html/index.html
+...      

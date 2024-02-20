@@ -1,0 +1,17 @@
+---
+- name: play to delete specific file in the remote server
+  hosts: student
+  remote_user: ansible
+  become: true
+  gather_facts: no
+  tasks: 
+   - name: Task to remove all .repo files in /etc/yum.repos.d
+     shell: "rm -f /etc/yum.repos.d/*.repo"
+   - name: copy repo file from local to remote servers
+     copy:
+      src: /etc/yum.repos.d/rhel83.repo
+      dest: /etc/yum.repos.d/rhel83.repo
+      owner: root
+      group: root
+      mode: 0644
+...        

@@ -1,0 +1,27 @@
+---
+- name: play to copy local file to remote servers with copy module
+  hosts: tiger
+  become: true
+  remote_user: ansible
+  gather_facts: false
+  vars:
+   dname: /var/ansible
+   fname: user_list.csv
+  tasks:
+   - name: create a directory {{dname}}
+     file: #file module to create a directory
+      path: "{{dname}}"
+      state: directory
+      owner: ansible
+      group: ansible
+      mode: '0700'
+   - name: copy {{fname}} to {{dname}} to all remote servers
+     copy: #copy module to copy a file from local server to remote server
+      src: /home/ansible/playbook/{{fname}}
+      dest: "{{dname}}/{{fname}}"
+      owner: ansible
+      group: ansible
+      mode: '0600'
+      backup: yes
+...           
+

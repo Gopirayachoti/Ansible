@@ -1,0 +1,14 @@
+---
+- name: Implement include module to include tasks and there by increase the play modularity
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  gather_facts: false
+  tasks:
+   - name: Include necessary variables
+     include_vars: vars/dbvars.yml
+   - name: Install the package
+     include: tasks/inst_pkg.yml
+   - name: start the service
+     include: tasks/ser_start.yml  
+

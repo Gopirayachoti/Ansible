@@ -1,0 +1,21 @@
+---
+- name: play to create a user and read the password from Ansible vault
+# create ansible vault file using the command
+# ansible-vault create filename.yml
+# you need to provide the password for the ansiblw vault file
+#
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  vars_prompt:
+   - name: u_name
+     prompt: "Enter the username"
+     private: no
+  vars_files: vars/sec1.yml
+  tasks:
+   - name: Task to create a user {{u_name}}
+     user:
+      name: "{{u_name}}"
+      password: "{{mypass | password_hash}}"
+      comment: "The robo4 user by ansible"
+...         

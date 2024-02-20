@@ -1,0 +1,16 @@
+---
+- name: play to execute shell script in the remote server
+#shell script ios available  /home/ansible/playbook/muyscript.sh
+  hosts: [192.168.5.66 192.168.5.44]
+  gather_facts: false
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: push the script to remote server
+     copy:
+      src: /home/ansible/playbook/myscript.sh
+      dest: /tmp/my_script.sh
+      mode: 0755
+   - name: Execute the script now
+     shell: /tmp/myscript.sh
+...       

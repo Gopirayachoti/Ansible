@@ -1,0 +1,12 @@
+---
+- name: conditional test - using integer check
+  hosts:  localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: Install vsftpd if sufficient memory is available
+     package: 
+      name: vsftpd
+      state: latest
+     when: ansible_facts['memory_mb']['real']['free'] > 50
+...      

@@ -1,0 +1,37 @@
+---
+- name: create file system an /dev/sdb
+  hosts: localhost
+  become: yes
+  tasks: 
+   - name: create a volume group
+     lvg:
+      vg: sapvg
+      pvs: /dev/sdb
+      pesize: 32
+
+   - name: create a logical volume
+     lvol: 
+       vg: sapvg
+       lv: saplv01
+       size: 1024
+       pvs: /dev/sdb
+
+   - name: create a filesystem
+     filesystem:
+       fstype: xfs
+       dev: /dev/sapvg/saplv01
+
+   - name: create a mountpoint
+     file:
+       path: /sap01
+       state: directory
+       mode: 0755
+
+   - name: Now mount the filesystem
+     mount: 
+       path: /sap01
+       src: /dev/sapvg/saplv01
+       fstype: xfs
+       state: unmounted
+       state: absent
+...

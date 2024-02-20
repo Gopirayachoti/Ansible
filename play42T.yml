@@ -1,0 +1,15 @@
+---
+- name: Combining loop and when statements
+  #user 'when' to execute a task only if a specific condition i9s true, you can user loop to 
+  #iterate over a list of items
+  hosts: localhost
+  remote_user: ansible
+  become: true
+  tasks:
+   - name: task to update  the kernel if statement space is available in /boot filesystem
+     package:
+      name: kernel
+      state: latest
+     loop: "{{ansible_facts['mounts']}}"
+     when: item.mount == "/boot" and item.size_available > 100000000
+...

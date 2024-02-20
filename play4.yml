@@ -1,0 +1,21 @@
+---
+- name: play to copy repo file into remote servers and install a package
+  hosts: all
+  remote_user: ansible
+  become: true
+  tasks:
+    - name: Task to copy a repo file from local server to remote servers
+      copy:
+        src: /etc/yum.repos.d/rhel83.repo
+        dest: /etc/yum.repos.d/rhel83.repo
+        owner: root
+        group: root
+        mode: 0644
+    - name: Task to install the package
+      yum: 
+       name: 
+       - httpd #Install http package in the remote server
+       - mariadb
+       - vsftpd
+       state: latest  
+...       

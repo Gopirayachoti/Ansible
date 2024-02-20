@@ -1,0 +1,17 @@
+---
+- name: Demonstrate vars_prompt to read variables from the keyboard
+  hosts: localhost
+  remote_user: ansible
+  gather_facts: false
+  vars_prompt:
+   - name: web_server
+     prompt: "Enter your web_ser name:"
+     private: no # private: yes
+   - name: db_server
+     prompt: "Enter your db_ser name"
+     private: no
+  tasks:
+   - name: print the value taken from vars prompt
+     debug:
+      msg: "The value of web_server and db_server are: {{web_server}} and {{db_server}}"
+...

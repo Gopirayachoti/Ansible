@@ -1,0 +1,13 @@
+---
+- name: Demonstrate debug module
+  #hosts: [192.168.5.66 192.168.5.44]
+  hosts: all
+  become: true
+  remote_user: ansible
+  vars:
+   OS: Linux
+  tasks:
+   - name: Task to print the text on the screen
+     debug:
+      msg: "Good Evening... its Ansible.. and its {{color}} Intelligent!!!"
+...    

@@ -1,0 +1,30 @@
+---
+#play to check if variable is defined and also use of when condition
+- name: play to demonstrate is define and is not defined
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  gather_facts: false
+  tasks:
+   - name: check if the variable is defined
+     shell: 
+      echo "The variable my_color is defined and its value is {{my_color}}"
+     when: my_color is defined  # returns true if my_color variable is defined
+   - name: use fail module to demonstrate when variable is not defined
+     fail:
+      msg: "This play returned to define my_color variable ... Failing the play..."
+     when: my_color is not defined
+     ignore_errors: yes
+   - name: check if /gold directory is empty
+     command:
+      ls /gold
+     register: out
+   - name: print the message if /gold directory is empty
+     debug:
+      msg: "The directory /gold is empty"
+     when: out.stdout == ""
+   - name: print the /gold contents if it is not empty
+     debug:
+      var: out.stdout_lines
+     when: out.stdout != ""
+...         

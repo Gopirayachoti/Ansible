@@ -1,0 +1,16 @@
+---
+- name: My first playbook # This the is name of the playbook
+  hosts: [devops student] 
+  remote_user: ansible
+  become: true
+  tasks: 
+  - name: My first task to create a user
+    user: 
+     name: vscode2
+     password: $6$kjnmhj$.0x5tv1DmBWQlVFUS1XBMilXS.NVtvbTc6dQxIoM/L3daGJ397aYjxw8usnWxcI7zXd5vLpWRdidaMcOHRlkv1
+     shell: /bin/ksh
+     comment: "user created by Ansible Engine" 
+     home: /home/vscode1
+     state: absent
+     remove: yes
+...  
