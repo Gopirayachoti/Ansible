@@ -5,7 +5,7 @@
   become: true
   remote_user: ansible
   vars:
-   webserver_message: "Welcome!! . I am running ALC Labs Web server."
+   webserver_message: "Welcome!! . I am running in My Web server."
   tasks:
    - name: Install httpd package
      yum:
